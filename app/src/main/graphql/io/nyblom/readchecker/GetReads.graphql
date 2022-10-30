@@ -1,0 +1,6 @@
+query GetReads {
+  reads(order_by: {read_count: desc}) {
+    read_count
+    slug
+  }
+}
