@@ -1,5 +1,6 @@
 package io.nyblom.readchecker.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,10 +19,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.nyblom.readchecker.GetReadsQuery
 import io.nyblom.readchecker.ReadsState
+import io.nyblom.readchecker.ui.theme.ReadCheckerTheme
 
 @Preview(showBackground = true)
 @Composable
@@ -29,7 +32,8 @@ fun ReadsList(@PreviewParameter(ReadsPreviewProvider::class) readState: ReadsSta
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         readState.reads.forEach {
@@ -40,7 +44,9 @@ fun ReadsList(@PreviewParameter(ReadsPreviewProvider::class) readState: ReadsSta
 
 @Composable
 fun ItemRow(slug: String, count: String) {
-    Card {
+    Card(
+        border = BorderStroke(Dp.Hairline, MaterialTheme.colorScheme.secondary)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

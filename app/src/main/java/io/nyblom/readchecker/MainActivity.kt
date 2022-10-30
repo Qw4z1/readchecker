@@ -4,11 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import io.nyblom.readchecker.ui.ReadsList
@@ -25,8 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ReadCheckerTheme {
                 Surface(
-                    color = MaterialTheme.colorScheme.surface,
-                    modifier = Modifier.padding(16.dp)
+                    color = MaterialTheme.colorScheme.primaryContainer,
                 ) {
                     SwipeRefresh(
                         state = rememberSwipeRefreshState(viewModel.isRefreshing.value),
