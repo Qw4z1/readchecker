@@ -1,6 +1,9 @@
 package io.nyblom.readchecker.ui
 
+import android.net.Uri
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -24,7 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.nyblom.readchecker.GetReadsQuery
 import io.nyblom.readchecker.ReadsState
-import io.nyblom.readchecker.ui.theme.ReadCheckerTheme
+import io.nyblom.readchecker.copyBlogPostUrl
+import io.nyblom.readchecker.openBlogPost
 
 @Preview(showBackground = true)
 @Composable
@@ -42,10 +47,16 @@ fun ReadsList(@PreviewParameter(ReadsPreviewProvider::class) readState: ReadsSta
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemRow(slug: String, count: String) {
+    val context = LocalContext.current
     Card(
-        border = BorderStroke(Dp.Hairline, MaterialTheme.colorScheme.secondary)
+        border = BorderStroke(Dp.Hairline, MaterialTheme.colorScheme.secondary),
+        modifier = Modifier.combinedClickable(
+            onClick = { openBlogPost(context, slug) },
+            onLongClick = { copyBlogPostUrl(context, slug) },
+        )
     ) {
         Row(
             modifier = Modifier
